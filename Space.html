@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Space</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="semantic/semantic.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script type="text/javascript" src="semantic/semantic.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/paperscript" canvas="canvas">
+    // The amount of symbol we want to place;
+    var count = 500;
+
+    // Create a symbol, which we will use to place instances of later:
+    var path = new Path.Circle({
+        center: new Point(0, 0),
+        radius: .8,
+        fillColor: 'white'
+    });
+
+    var symbol = new SymbolDefinition(path);
+
+    // Place the instances of the symbol:
+    for (var i = 0; i < count; i++) {
+        // The center position is a random point in the view:
+        var center = Point.random() * view.size;
+        var placed = symbol.place(center);
+        var scale = (i + 1) / count;
+        placed.scale(scale);
+        placed.data.vector = new Point({
+            angle: Math.random() * 500,
+            length : scale * Math.random() / 5
+        });
+    }
+
+    var vector = new Point({
+        angle: 45,
+        length: 0
+    });
+
+    var mouseVector = vector.clone();
+
+    function onMouseMove(event) {
+        mouseVector = view.center - event.point;
+    }
+
+    // The onFrame function is called up to 60 times a second:
+    function onFrame(event) {
+        vector = vector + (mouseVector - vector) / 30;
+
+        // Run through the active layer's children list and change
+        // the position of the placed symbols:
+        for (var i = 0; i < count; i++) {
+            var item = project.activeLayer.children[i];
+            var size = item.bounds.size;
+            var length = vector.length / 10 * size.width / 10;
+            item.position += vector.normalize(length) + item.data.vector;
+            keepInView(item);
+        }
+    }
+
+    function keepInView(item) {
+        var position = item.position;
+        var itemBounds = item.bounds;
+        var bounds = view.bounds;
+        if (itemBounds.left > bounds.width) {
+            position.x = -item.bounds.width;
+        }
+
+        if (position.x < -itemBounds.width) {
+            position.x = bounds.width + itemBounds.width;
+        }
+
+        if (itemBounds.top > view.size.height) {
+            position.y = -itemBounds.height;
+        }
+
+        if (position.y < -itemBounds.height) {
+            position.y = bounds.height  + itemBounds.height / 2;
+        }
+    }
+    </script>
+</head>
+<style>
+.portfolio-items {
+		margin:0px 30px;
+	}
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,900);
+
+body{
+  font-family: 'Raleway', sans-serif;
+  color: #333;
+}
+
+header h1{
+  text-align: center;
+  font-weight: bold;
+  margin-top: 0;
+}
+  
+ header p{
+   text-align: center;
+   margin-bottom: 0;
+ }
+
+.hexa{
+  border: 0px;
+  float: left;
+  text-align: center;
+  height: 35px;
+  width: 60px;
+  font-size: 22px;
+  background: #f0f0f0;
+  color: #3c3c3c;
+  position: relative;
+  margin-top: 15px;
+}
+
+.hexa:before{
+  content: ""; 
+  position: absolute; 
+  left: 0; 
+  width: 0; 
+  height: 0;
+  border-bottom: 15px solid #f0f0f0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  top: -15px;
+}
+
+.hexa:after{
+  content: ""; 
+  position: absolute; 
+  left: 0; 
+  width: 0; 
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 15px solid #f0f0f0;
+  bottom: -15px;
+}
+
+.timeline {
+  position: relative;
+  padding: 0;
+  width: 100%;
+  margin-top: 20px;
+  list-style-type: none;
+	display:none;
+}
+
+.timeline:before {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  content: ' ';
+  display: block;
+  width: 2px;
+  height: 100%;
+  margin-left: -1px;
+  background: rgb(213,213,213);
+  background: -moz-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(100%,rgba(125,185,232,1)));
+  background: -webkit-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: -o-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: -ms-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: linear-gradient(to bottom, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  z-index: 5;
+}
+
+.timeline li {
+  padding: 2em 0;
+}
+
+.timeline .hexa{
+  width: 16px;
+  height: 10px;
+  position: absolute;
+  background: #00c4f3;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  margin-left:auto;
+  margin-right:auto;
+  top: -30px;
+  margin-top: 0;
+}
+
+.timeline .hexa:before {
+  border-bottom: 4px solid #00c4f3;
+  border-left-width: 8px;
+  border-right-width: 8px;
+  top: -4px;
+}
+
+.timeline .hexa:after {
+  border-left-width: 8px;
+  border-right-width: 8px;
+  border-top: 4px solid #00c4f3;
+  bottom: -4px;
+}
+
+.direction-l,
+.direction-r {
+  float: none;
+  width: 100%;
+  text-align: center;
+}
+
+.flag-wrapper {
+  text-align: center;
+  position: relative;
+}
+
+.flag {
+  position: relative;
+  display: inline;
+  background: rgb(255,255,255);
+  font-weight: 600;
+  z-index: 15;
+  padding: 6px 10px;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.direction-l .flag:after,
+.direction-r .flag:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -15px;
+  height: 0;
+  width: 0;
+  margin-left: -8px;
+  border: solid transparent;
+  border-bottom-color: rgb(255,255,255);
+  border-width: 8px;
+  pointer-events: none;
+}
+
+.direction-l .flag {
+  -webkit-box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+}
+
+.direction-r .flag {
+  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+}
+
+.time-wrapper {
+  display: block;
+  position: relative;
+  margin: 4px 0 0 0;
+  z-index: 14;
+  line-height: 1em;
+  vertical-align: middle;
+  color: #fff;
+}
+
+.direction-l .time-wrapper {
+  float: none;
+}
+
+.direction-r .time-wrapper {
+  float: none;
+}
+
+.time {
+  background: #00c4f3;
+  display: inline-block;
+  padding: 8px;
+}
+
+.desc {
+  position: relative;
+  margin: 1em 0 0 0;
+  padding: 1em;
+  background: rgb(254,254,254);
+  -webkit-box-shadow: 0 0 1px rgba(0,0,0,0.20);
+  -moz-box-shadow: 0 0 1px rgba(0,0,0,0.20);
+  box-shadow: 0 0 1px rgba(0,0,0,0.20);
+  z-index: 15;
+}
+
+.direction-l .desc,
+.direction-r .desc {
+  position: relative;
+  margin: 1em 1em 0 1em;
+  padding: 1em;
+  z-index: 15;
+}
+
+@media(min-width: 768px){
+  .timeline {
+    width: 660px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  #timeline-adjust {
+position: relative;
+top: -200px;
+}
+#timeline-adjust-2 {
+position: relative;
+    top: -380px;
+	}
+	
+	#timeline-adjust-3 {
+position: relative;
+    top: -540px;
+	}
+	
+  .timeline li:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  
+  .timeline .hexa {
+    left: -28px;
+    right: auto;
+    top: 8px;
+  }
+
+  .timeline .direction-l .hexa {
+    left: auto;
+    right: -28px;
+  }
+
+  .direction-l {
+    position: relative;
+    width: 310px;
+    float: left;
+    text-align: right;
+  }
+
+  .direction-r {
+    position: relative;
+    width: 310px;
+    float: right;
+    text-align: left;
+  }
+
+  .flag-wrapper {
+    display: inline-block;
+  }
+  
+  .flag {
+    font-size: 18px;
+  }
+
+  .direction-l .flag:after {
+    left: auto;
+    right: -16px;
+    top: 50%;
+    margin-top: -8px;
+    border: solid transparent;
+    border-left-color: rgb(254,254,254);
+    border-width: 8px;
+  }
+
+  .direction-r .flag:after {
+    top: 50%;
+    margin-top: -8px;
+    border: solid transparent;
+    border-right-color: rgb(254,254,254);
+    border-width: 8px;
+    left: -8px;
+  }
+
+  .time-wrapper {
+    display: inline;
+    vertical-align: middle;
+    margin: 0;
+  }
+
+  .direction-l .time-wrapper {
+    float: left;
+  }
+
+  .direction-r .time-wrapper {
+    float: right;
+  }
+
+  .time {
+    padding: 5px 10px;
+  }
+
+  .direction-r .desc {
+    margin: 1em 0 0 0.75em;
+  }
+}
+
+@media(min-width: 992px){
+  .timeline {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .direction-l {
+    position: relative;
+    width: 380px;
+    float: left;
+    text-align: right;
+  }
+
+  .direction-r {
+    position: relative;
+    width: 380px;
+    float: right;
+    text-align: left;
+  }
+}
+
+#experience {
+left: -2px;position: relative;
+}
+#skills {
+left: -4px;position: relative;
+}
+#clients {
+left: -6px;position: relative;
+}
+
+#education-section {
+display:none;
+}
+
+
+
+.timeline-2 {
+  position: relative;
+  padding: 0;
+  width: 100%;
+  margin-top: 20px;
+  list-style-type: none;
+}
+
+.timeline-2:before {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  content: ' ';
+  display: block;
+  width: 2px;
+  height: 100%;
+  margin-left: -1px;
+  background: rgb(213,213,213);
+  background: -moz-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(100%,rgba(125,185,232,1)));
+  background: -webkit-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: -o-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: -ms-linear-gradient(top, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  background: linear-gradient(to bottom, rgba(213,213,213,0) 0%, rgb(213,213,213) 8%, rgb(213,213,213) 92%, rgba(213,213,213,0) 100%);
+  z-index: 5;
+}
+
+.timeline-2 li {
+  padding: 2em 0;
+}
+
+.timeline-2 .hexa{
+  width: 16px;
+  height: 10px;
+  position: absolute;
+  background: #00c4f3;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  margin-left:auto;
+  margin-right:auto;
+  top: -30px;
+  margin-top: 0;
+}
+
+.timeline-2 .hexa:before {
+  border-bottom: 4px solid #00c4f3;
+  border-left-width: 8px;
+  border-right-width: 8px;
+  top: -4px;
+}
+
+.timeline-2 .hexa:after {
+  border-left-width: 8px;
+  border-right-width: 8px;
+  border-top: 4px solid #00c4f3;
+  bottom: -4px;
+}
+
+.direction2-l,
+.direction2-r {
+  float: none;
+  width: 100%;
+  text-align: center;
+}
+
+.flag2-wrapper {
+  text-align: center;
+  position: relative;
+}
+
+.flag2 {
+  position: relative;
+  display: inline;
+  background: rgb(255,255,255);
+  font-weight: 600;
+  z-index: 15;
+  padding: 6px 10px;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.direction2-l .flag2:after,
+.direction2-r .flag2:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -15px;
+  height: 0;
+  width: 0;
+  margin-left: -8px;
+  border: solid transparent;
+  border-bottom-color: rgb(255,255,255);
+  border-width: 8px;
+  pointer-events: none;
+}
+
+.direction2-l .flag2 {
+  -webkit-box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+}
+
+.direction2-r .flag2 {
+  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+}
+
+
+.direction2-l .time-wrapper {
+  float: none;
+}
+
+.direction2-r .time-wrapper {
+  float: none;
+}
+
+
+
+.direction2-l .desc,
+.direction2-r .desc {
+  position: relative;
+  margin: 1em 1em 0 1em;
+  padding: 1em;
+  z-index: 15;
+}
+
+@media(min-width: 768px){
+  .timeline-2 {
+    width: 660px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .timeline-2 li:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  
+  .timeline-2 .hexa {
+    left: -28px;
+    right: auto;
+    top: 8px;
+  }
+
+  .timeline-2 .direction2-l .hexa {
+    left: auto;
+    right: -28px;
+  }
+
+  .direction2-l {
+    position: relative;
+    width: 310px;
+    float: left;
+    text-align: right;
+  }
+
+  .direction2-r {
+    position: relative;
+    width: 310px;
+    float: right;
+    text-align: left;
+  }
+
+  .flag2-wrapper {
+    display: inline-block;
+  }
+  
+  .flag2 {
+    font-size: 18px;
+  }
+
+  .direction2-l .flag2:after {
+    left: auto;
+    right: -16px;
+    top: 50%;
+    margin-top: -8px;
+    border: solid transparent;
+    border-left-color: rgb(254,254,254);
+    border-width: 8px;
+  }
+
+  .direction2-r .flag2:after {
+    top: 50%;
+    margin-top: -8px;
+    border: solid transparent;
+    border-right-color: rgb(254,254,254);
+    border-width: 8px;
+    left: -8px;
+  }
+
+
+  .direction2-l .time-wrapper {
+    float: left;
+  }
+
+  .direction2-r .time-wrapper {
+    float: right;
+  }
+
+
+  .direction2-r .desc {
+    margin: 1em 0 0 0.75em;
+  }
+}
+
+@media(min-width: 992px){
+  .timeline-2 {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .direction2-l {
+    position: relative;
+    width: 380px;
+    float: left;
+    text-align: right;
+  }
+
+  .direction2-r {
+    position: relative;
+    width: 380px;
+    float: right;
+    text-align: left;
+  }
+}
+
+#experience-section {
+display:none;
+}
+#education-section {
+display:none;
+}
+
+#education, #experience, #skills,#clients {
+	margin:0px 5px;
+}
+.white {
+color:#ffffff !important;
+}
+.animating.dimmable:not(body), .dimmed.dimmable:not(body) {
+overflow-y:auto !important;
+}
+
+.raised {
+-webkit-box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
+	}
+	
+.hr-primary {
+    padding: 0;
+    border: none;
+    border-top: solid 5px;
+    text-align: center;
+    max-width: 250px;
+	border-color:#ffffff;
+}
+.modal-heading {
+font-size: 3.2em !important;
+}
+	
+	</style>
+<body class="" style="margin-top:0px;">
+<div class="ui header dimmable dimmed" style="height:100%;margin:0px;overflow: hidden;">
+<div class="ui inverted secondary menu" style="z-index:1001;position:relative;padding:20px;overflow-y: scroll;  ">
+  <a target="_blank" href="">
+   <i class="linkedin icon white" style="font-size:2rem;margin-right:0px;"></i>
+  </a>
+   <a target="_blank" href="" style="left: 10px;
+    position: relative">
+   <i class="github icon white" style="font-size:2rem;margin-right:0px;"></i>
+  </a>
+  <div class="right menu">
+    
+  </div>
+</div>
+<div class="ui dimmer active" style="background-color: rgba(0,0,0,.90);">
+<canvas id="canvas" resize hidpi="off" style="width:100%;position:absolute;"></canvas>
+<div style="z-index:1001;position:relative;">
+
+
+<div class="ui stackable four column grid">
+  <div class="four wide column"></div>
+  <div class="eight wide column center-heading">
+  <div class="ui huge header white" style="font-size:3rem;">CHUCK GRIFFIN</div>
+<h4 style="color:#ffffff;">FOUNDER/DEVELOPER OF SCRIPTMOTHER.COM</h4>
+<div class="ui divider" style="border-top: 3px solid rgba(34,36,38,.15);
+    border-bottom: 3px solid rgba(255,255,255,.1);
+    width: 50%;
+    margin: auto;"></div>
+	<p></p>
+  <div class="ui tiny header white">Full-Stack Developer - UX/UI Developer - Applications Programmer 
+Screenwriting Professional - Audio/Video Editor - All Things Media
+</div>
+  </div>
+  <div class="four wide column"></div>
+</div>
+</div>
+</div>
+
+<div class="ui inverted vertical footer segment menu-section white"style="z-index:1001;position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: transparent;
+   text-align: center;">
+    <div class="ui container">
+	<div class="ui horizontal list" >
+  <div class="item portfolio-items">
+    <div class="content">
+      <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">About</div>
+   <i class="cubes icon" style="color:#ffffff;font-size:2rem;"></i>
+    </div>
+  </div>
+  <div class="item portfolio-items">
+    <div class="content">
+      <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">Resume</div>
+   <i class="briefcase icon" style="color:#ffffff;font-size:2rem;"></i>
+    </div>
+  </div>
+  <div class="item portfolio-items">
+    <div class="content">
+      <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">Portfolio</div>
+   <i class="code icon white" style=";font-size:2rem;"></i>
+    </div>
+  </div>
+  <div class="item portfolio-items">
+    <div class="content">
+      <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">Contact</div>
+   <i class="envelope icon white" style="font-size:2rem;"></i>
+    </div>
+  </div>
+</div>
+    </div>	
+	</div>
+	<div class="ui inverted vertical footer segment about-section transition hidden" style="z-index:1001;
+   
+   width: 100%;
+   color: white;position: fixed;overflow-y:auto;overflow-x: hidden;height:80%;background:transparent; ">
+	
+	<div class="ui stackable grid container">
+	<div class="one column row">
+<div class="sixteen wide column">
+	<div class="ui secondary menu" style="z-index:1001;position:relative;padding:20px;">
+<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;right:20px;">Close <i class="close icon about-close"></i></span>
+
+</div>
+
+
+
+</div>
+</div>
+<div class="two column row">
+
+
+<div class="eight wide column">
+
+<div class="ui items">
+  <div class="item">
+    
+    <div class="content">
+      <div class="ui huge header" style="font-size:5em;color:#ffffff;">Chuck Griffin</div>
+      <div class="meta">
+        <span class="ui medium header"style="font-size:2.5em;color:#ffffff;">Full Stack Developer</span>
+      </div>
+      <div class="description">
+        <p>
+        <i class="envelope icon" style="font-size:1.2em;color:#ffffff;"></i><span style="font-size:1.2em;color:#ffffff;"><a href="mailto:chuckgriffin1987@gmail.com">chuckgriffin1987@gmail.com</a></span></p>
+		<p class="white">
+        <i class="map marker icon"></i><span>Athens, Georgia</span></p>
+		<p class="white" style="font-size:1.5em;">
+		<i class="github icon"></i>
+		<i class="linkedin icon"></i>
+		</p>
+      </div>
+      <div class="extra" style="font-size:1.2em;">
+	  
+      </div>
+    </div>
+	
+  </div>
+</div>
+</div>
+<div class="eight wide column">
+
+<div class="ui header" style="color:#ffffff;">USER-ORIENTED + BUSINESS-MINDED
+</div>
+<div>Integral team member responsible for designing and crafting multiple applications for a large university, from initial concept through delivery of completed product. A responsive communicator and team player committed to delivering a pristine product earlier than expected. My aspirations as a full stack engineer are to provide the utmost skill and efficiency that will allow my clients to thrive.</div>
+<div class="ui header" style="color:#ffffff;">TECHNICAL + ALL-PURPOSE DEVELOPER
+</div>
+<div>Analytical Web Developer / Engineer with an eye for detail and commitment to producing clean and well-structured code, specifically:  PHP/Laravel, AngularJS, Node.js, and .NET. Four years in-field experience in application design and development. Media Studies graduate from the University of Georgia, Web Development graduate from Gwinnett Technical College, and current enrollee at prestigious Georgia tech Coding Bootcamp. A keen observer of trends and quick learner of programming languages with a passion for startups, innovative solutions, and helping teammates and clients succeed.
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+  
+</div>
+
+
+<div class="resume-section transition hidden">
+	<div class="" style="z-index:1001;position:relative;padding:20px;">
+<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;left:20px;"><i class="arrow left icon back"></i> Back</span>
+<div style="margin:auto;text-align:center;">
+<div class="ui buttons" style="margin-bottom:60px;">
+  <button id="education" class="ui large inverted primary button">Education</button>
+  <button id="experience" class="ui large inverted red button">Experience</button>
+  <button id="skills" class="ui large inverted olive button">Skills</button>
+  <!-- <button id="clients" class="ui large inverted secondary button">Clients</button> -->
+</div>
+
+<div id="education-section">
+<ul class="timeline">
+  <!-- Item 1 -->
+  <li>
+    <div class="direction-r">
+      <div class="flag-wrapper">
+        <span class="hexa"></span>
+        <span class="flag">The University of Georgia</span>
+        <span class="time-wrapper"><span class="time">2005-2009</span></span>
+      </div>
+      <div class="desc">
+	  <strong>Major:</strong> BA, Journalism and Mass Communication (<strong>GPA:</strong> 3.6/4.0)<br />
+	  <strong>Minor:</strong> Film Studies  </div>
+    </div>
+  </li>
+  <!-- Item 2 -->
+
+  <li>
+    <div class="direction-l">
+      <div class="flag-wrapper">
+        <span class="hexa"></span>
+        <span class="flag">Gwinnett Technical College</span>
+        <span class="time-wrapper"><span class="time">2015 - 2017</span></span>
+      </div>
+      <div class="desc"><strong>Associates:</strong> Web Development and Design (GPA: 3.8/4.0)</div>
+    </div>
+  </li>
+
+  <!-- Item 3 -->
+  <li>
+    <div class="direction-r">
+      <div class="flag-wrapper">
+        <span class="hexa"></span>
+        <span class="flag">Georgia Tech Professional Education</span>
+        <span class="time-wrapper"><span class="time">2018 - 2019</span></span>
+      </div>
+      <div class="desc">Certificate – Full Stack Developer</div>
+    </div>
+  </li>
+  
+  
+</ul>
+</div>
+
+
+<div id="experience-section">
+<ul class="timeline-2">
+  <!-- Item 1 -->
+  <li>
+    <div class="direction2-r">
+      <div class="flag2-wrapper">
+        <span class="hexa"></span>
+        <span class="flag2">Development & Alumni Relations, UGA</span>
+        <span class="time-wrapper"><span class="time">2017 – Present </span></span>
+      </div>
+      <div class="desc"><p><strong>Web Developer</strong></p>
+	  <ul>
+	  <li style="padding:0px;">Utilize extensive programming and development skills to build and manage applications for UGA fundraising.</li>
+<li style="padding:0px;">Create and manage event registration and online donation pages for fundraising and marketing efforts.</li>
+<li style="padding:0px;">Build and maintain customizations for existing system applications.</li>
+<li style="padding:0px;">Coordinate with team members and departments to provide application support for marketing efforts and goals.</li>
+</ul></div>
+    </div>
+  </li>
+
+  <!-- Item 2 -->
+  <li id="timeline-adjust">
+    <div class="direction2-l">
+      <div class="flag2-wrapper">
+        <span class="hexa"></span>
+        <span class="flag2" style="font-size: 14px;">Institute of Continuing Legal Education in Georgia </span>
+        <span class="time-wrapper"><span class="time">2016 – 2017  </span></span>
+      </div>
+      <div class="desc"><p><strong>Web Manager/IT Administrator</strong></p>
+	  <ul>
+	  <li style="padding:0px;">Expertly oversee all customer accounts and purchases for online catalogs to ensure customer satisfaction.</li>
+<li style="padding:0px;">Efficiently generate online product listings, including descriptions, images, and layout, with strict attention to detail.</li>
+<li style="padding:0px;">Direct social media and brand development, generating bi-monthly blog posts related to furniture and comfort living and managing Facebook page and other social media accounts to increase brand awareness.</li>
+<li style="padding:0px;">Coordinate daily with wholesale manufacturer to ensure all orders are processed and shipped accordingly.</li>
+</ul></div>
+    </div>
+  </li>
+
+  <!-- Item 3 -->
+  <li id="timeline-adjust-2">
+    <div class="direction2-r">
+      <div class="flag2-wrapper">
+        <span class="hexa"></span>
+        <span class="flag2">Shop4futons.com, World of Futons</span>
+        <span class="time-wrapper"><span class="time">2013 – 2017</span></span>
+      </div>
+      <div class="desc"><p><strong>Web Designer/Online Manager</strong></p>
+	  <ul>
+	  <li style="padding:0px;">Created, managed and oversaw web content for all seminars provided by ICLE Georgia.</li>
+<li style="padding:0px;">Set up and maintained live web streams and online video courses for all seminars.</li>
+<li style="padding:0px;">Routinely updated web content according to current schedule, and ensured flawless functionality of website.</li>
+<li style="padding:0px;">Coordinated with IT administrators and third-party consultants to increase efficiency of IT environment.</li>
+</ul></div>
+    </div>
+  </li>
+  
+  
+  <!-- Item 4 -->
+  <li id="timeline-adjust-3">
+    <div class="direction2-l">
+      <div class="flag2-wrapper">
+        <span class="hexa"></span>
+        <span class="flag2" style="font-size: 14px;">AIBN Radio </span>
+        <span class="time-wrapper"><span class="time">2016 – 2017  </span></span>
+      </div>
+      <div class="desc"><p><strong>Media Coordinator/Web Developer</strong></p>
+	  <ul>
+	  <li style="padding:0px;">Utilize extensive programming skills to create and maintain the podcast website, www.thedannydanielshow.com.</li>
+<li style="padding:0px;">Proficiently manage all copywriting, analytics and hard coding of the website, ensuring all deadlines are met.</li>
+<li style="padding:0px;">Employ front-end development with client-side validation, middle-tier development, and back-end management.</li>
+<li style="padding:0px;">Brainstorm the technical and workflow solutions to ensure website functionality meets business requirements.</li>
+</ul></div>
+    </div>
+  </li>
+</ul>
+</div>
+
+
+</div>
+
+	  
+	  
+
+
+</div>
+
+<div class="skills-section transition hidden" style="display:none;">
+<div class="ui stackable two column grid container">
+<div class="column">
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</div>
+<div class="column">
+<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+</div>
+</div>
+
+<div class="ui stackable center aligned grid container" style="margin-top:100px;">
+<h1>Web Design | UX/UI 
+<div class="ui small images">
+  <img class="ui image" src="wordpress.png">
+  <img class="ui image" src="semantic2.png">
+  <img class="ui image" src="bootstrap.png">
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="portfolio-section transition hidden" style="background:url('noise.jpg');height: 100%;">
+	<div class="" style="position:relative;padding:20px;">
+<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;left:20px;"><i class="arrow left icon back"></i> Back</span>
+  <div class="ui container">
+    <div class="ui huge header">PORTFOLLIO</div>
+  <div class="ui secondary menu">
+  <button  class="ui button" tabindex="0">
+    All
+  </button >
+  <button  class="ui button" tabindex="1">
+    
+  </button>
+  <button  class="ui button" tabindex="2">
+    Friends
+  </button >
+</div>
+	<div class="ui stackable three column grid container">
+  <div class="column" id="port1">
+    <div class="ui fluid image raised">
+      <div class="ui black ribbon label" style="font-size:1em;">
+        <i class="film icon"></i> ScriptMother.com
+      </div>
+      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/logo-large3.jpg">
+    </div>
+  </div>
+  <div class="ui basic modal" id="port1-modal">
+  <div class="ui icon header modal-heading">
+    SCRIPTMOTHER
+  </div>
+  <hr class="hr-primary">
+  <div class="content" style="text-align:center;color:#ffffff;">
+	<div class="ui header" style="font-size:2em;color:#ffffff;">
+<em>Raise Your Script the Write Way</em>
+  </div>
+  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/scriptmother.jpg" style="margin:auto;max-width:550px;">
+  <h3>ScriptMother is an innovative new   platform for screenwriters. Our peer-review app lets you receive unlimited professional feedback for your script. Earn credits by reviewing projects uploaded by your peers. Credits can be spent on better reviews, monthly competitions, and industry exposure for you and your script.</h3>
+  <h5>Client: <strong><a href="https://hadden-farms.com/modes/index2.html" target="_blank">Gamine Modes</a></strong> | Date: <strong>November 2017 - Present</strong> <br />Service: <strong>Founder/Owner, PHP development and Semantic UI design from concept to finished product. E-Commerce Integration.
+</strong></h5>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      close
+    </div>
+  </div>
+  </div>
+  
+  <div class="column" id="port2">
+    <div class="ui fluid image raised">
+      <div class="ui black ribbon label" style="font-size:1em;">
+        <i class="gift icon"></i> GamineModes.com
+      </div>
+      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/gamine.png">
+    </div>
+  </div>
+  <div class="ui basic modal" id="port2-modal">
+  <div class="ui icon header modal-heading">
+    GAMINE MODES
+  </div>
+  <hr class="hr-primary">
+  <div class="content" style="text-align:center;color:#ffffff;">
+	<div class="ui header" style="font-size:2em;color:#ffffff;">
+<em>
+Create Your Own Face Mask
+</em>
+  </div>
+  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/dress.jpg" style="margin:auto;max-width:550px;">
+  <h3>
+  Gamine Modes is a prospective e-commerce store that sells dresses and fashion accessories. The site features an interactive design studio which allows the user to customize their own dress. The site's innovative design studio lets customers choose variations for their dress and through an animated canvas, see the changes in their product outcome in realtime.
+  </h3>
+  <h5>
+  Client: 
+  <strong><a href="https://gaminemodes.com" target="_blank">
+  Gamine Modes
+  </a></strong> 
+  | Date: 
+  <strong>
+  August 2016
+  </strong> <br />
+  Service: 
+  <strong>
+  Web Development, layout, design, UX/UI, design studio creation
+  </strong></h5>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      close
+    </div>
+  </div>
+  </div>
+  
+  
+  
+  
+    <div class="column" id="port3">
+    <div class="ui fluid image raised">
+      <div class="ui black ribbon label" style="font-size:1em;">
+        <i class="lock icon"></i> Cedalius International
+      </div>
+      <img src="cedalius.jpg">
+    </div>
+  </div>
+  <div class="ui basic modal" id="port3-modal">
+  <div class="ui icon header modal-heading">
+    CEDALIUS INTERNATIONAL
+  </div>
+  <hr class="hr-primary">
+  <div class="content" style="text-align:center;color:#ffffff;">
+	<div class="ui header" style="font-size:2em;color:#ffffff;">
+<em>
+Background Screening and Reporting
+</em>
+  </div>
+  <img class="ui fluid image" src="cedalius.jpg" style="margin:auto;max-width:550px;">
+  <h3>
+Cedalius is one of the most innovative Consumer Reporting Agencies in the industry. Cedalius offers comprehensive domestic and international background and screening reporting that includes criminal records, verifications, drug testing, social media reports, and much, much more. The agency's versatility allows them to shape their software-as-a-service (SaaS) employment background screening platform to fit their clients’ needs..</h3>
+  <h5>
+  Client: 
+  <strong><a href="http://world-of-futons.getfutons.com/" target="_blank">Cedalius International</a></strong> 
+  | Date: 
+  <strong>
+  2017-2018
+  </strong> <br />
+  Service: 
+  <strong>
+  Web design, WordPress development/customization, content editing, web management
+  </strong></h5>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      close
+    </div>
+  </div>
+  </div>
+  
+  
+    <div class="column" id="port4">
+    <div class="ui fluid image raised">
+      <div class="ui black ribbon label" style="font-size:1em;">
+        <i class="leaf icon"></i> Upper Oconee Watershed Network
+      </div>
+      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/uown.jpg">
+    </div>
+  </div>
+  <div class="ui basic modal" id="port4-modal">
+  <div class="ui icon header modal-heading">
+    UPPER OCONEE WATERSHED NETWORK
+  </div>
+  <hr class="hr-primary">
+  <div class="content" style="text-align:center;color:#ffffff;">
+	<div class="ui header" style="font-size:2em;color:#ffffff;">
+<em>
+Non-Profit Organization
+</em>
+  </div>
+  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/uown.jpg" style="margin:auto;max-width:550px;">
+  <h3>
+  The Upper Oconee Watershed Network is dedicated to protecting water resources and improving stream health in our watershed through community-based advocacy, monitoring, education, and recreation.
+  </h3>
+  <h5>
+  Client: 
+  <strong><a href="http://uown.org/Events/upper_oconee_science_policy_summit.php" target="_blank">Upper Oconee Watershed Network (UOWN)</a></strong> 
+  | Date: 
+  <strong>
+  August 2016
+  </strong> <br />
+  Service: 
+  <strong>
+  Web development, layout design, migration to new layout, content creation/management
+  </strong></h5>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      close
+    </div>
+  </div>
+  </div>
+  
+  
+  <div class="column" id="port5">
+    <div class="ui fluid image raised">
+      <div class="ui black ribbon label" style="font-size:1em;">
+        <i class="leaf icon"></i> World of Futons
+      </div>
+      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/futons.jpg">
+    </div>
+  </div>
+  <div class="ui basic modal" id="port5-modal">
+  <div class="ui icon header modal-heading">
+    WORLD OF FUTONS
+  </div>
+  <hr class="hr-primary">
+  <div class="content" style="text-align:center;color:#ffffff;">
+	<div class="ui header" style="font-size:2em;color:#ffffff;">
+<em>
+Online Retail
+</em>
+  </div>
+  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/futons.jpg" style="margin:auto;max-width:550px;">
+  <h3>
+World of Futons is a furniture retailer in Athens, Georgia, providing a wide range of unfinished Poplar Hardwood frames made right in Athens. Their showroom features over 20 different frames styles in Oak, Teak, Cherry, Beech and Poplar; over 10 different futon pads, including coil springs, wool, cotton, poly, blended combinations and over 300 different fabrics in a variety of textures and colors.</h3>
+  <h5>
+  Client: 
+  <strong><a href="http://world-of-futons.getfutons.com/" target="_blank">World of Futons</a></strong> 
+  | Date: 
+  <strong>
+  2013 2017
+  </strong> <br />
+  Service: 
+  <strong>
+  Web design, WordPress development, product listings, content editing, blog management
+  </strong></h5>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      close
+    </div>
+  </div>
+  </div>
+  
+  
+<div class="column" id="port6">
+    <div class="ui fluid image raised">
+      <div class="ui black ribbon label" style="font-size:1em;">
+        <i class="microphone icon"></i> AIBN Radio/The Danny Daniel Show
+      </div>
+      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/ddshow.jpg">
+    </div>
+  </div>
+  <div class="ui basic modal" id="port6-modal">
+  <div class="ui icon header modal-heading">
+    AIBN Radio/The Danny Daniel Show
+  </div>
+  <hr class="hr-primary">
+  <div class="content" style="text-align:center;color:#ffffff;">
+	<div class="ui header" style="font-size:2em;color:#ffffff;">
+<em>
+Online Radio Network
+</em>
+  </div>
+  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/ddshow.jpg" style="margin:auto;max-width:550px;">
+  <h3>
+  The Danny Daniel Show is a small-town America classic podcast that provides entertaining topics wrapped with sixties and seventies Motown music. The podcast aims to inspire listeners with informative and entertaining variety programming that is blended with upbeat nostalgic music. The Danny Daniel Show is a place to listen to relatable stories, ideas & classic witty humor.
+  </h3>
+  <h5>
+  Client: 
+  <strong><a href="http://thedannydanielshow.com" target="_blank">The Danny Daniel Show LLC</a></strong> 
+  | Date: 
+  <strong>
+  March 2016
+  </strong> <br />
+  Service: 
+  <strong>
+  Web Development, web/graphic design, layout, business model, copywriting, marketing, social media, podcast syndication, compatibility for mobile devices
+  </strong></h5>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      close
+    </div>
+  </div>
+  </div>
+  
+  
+</div>
+	
+  </div>
+</div>
+</div>
+
+<div class="contact-section transition hidden">
+	<div class="ui secondary menu" style="z-index:1001;position:relative;padding:20px;">
+<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;left:20px;"><i class="arrow left icon back"></i> Back</span>
+  <div class="right menu">
+    
+  </div>
+</div>
+</div>
+</body>
+</html>
+<script>
+
+
+
+$( document ).ready(function() {
+// these two are the same
+$( ".cubes" ).click(function() {
+  $('.menu-section').transition('fade down');
+  $('.center-heading').transition('fade down');  
+  $('.about-section').transition('slide up');
+});
+
+
+$( ".about-close" ).click(function() {
+$('.menu-section').transition('fade up');
+  $('.center-heading').transition('fade up');  
+$('.about-section').transition('slide up');
+});
+
+$( ".briefcase" ).click(function() {
+  $('.dimmed').transition('fade left');  
+  $('.resume-section').show().addClass('visible').removeClass('hidden');  
+$("#education").focus();
+	educationShow();
+});
+
+$( ".code" ).click(function() {
+  $('.dimmed').transition('fade left');
+  $('.portfolio-section').transition('fade left');
+});
+
+$( ".envelope" ).click(function() {
+  $('.contact-section').transition('fade left');
+  $('.dimmed').transition('fade left');
+});
+
+
+
+$( ".back" ).click(function() {
+  $('.dimmed').transition('fade left');
+  
+  $('.direction-l').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.direction-r').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.timeline').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.direction2-l').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.direction2-r').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.timeline-2').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('#experience-section').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('#education-section').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+  
+  $('.contact-section').removeClass('visible').addClass('hidden').css('display','none');
+  $('.portfolio-section').removeClass('visible').addClass('hidden').css('display','none');
+  $('.resume-section').removeClass('visible').addClass('hidden').css('display','none');
+});
+
+
+$( "#experience" ).click(function() {
+if ( $("#experience-section").css('display') == 'none' || $("#experience-section").css("visibility") == "hidden"){
+    experienceHide();
+	educationShow();
+}
+
+});
+
+$( "#education" ).click(function() {
+if ( $("#education-section").css('display') == 'none' || $("#education-section").css("visibility") == "hidden"){
+
+educationHide();
+experienceShow();
+}
+});
+
+});
+
+
+function educationShow(){
+
+
+  
+$('.direction-l').hide();
+$('.direction-r').hide();
+$('.timeline').hide();
+
+  $('#education-section').transition('zoom'); 
+
+    $('.timeline')
+  .transition({
+    animation  : 'fly up',
+    interval   : '100',
+	queue:true
+  });  
+	
+
+ $('.direction-r')
+  .transition({
+    animation  : 'fly left',
+    interval   : '100',
+	queue:true
+  });  
+  
+$('.direction-l')
+  .transition({
+    animation  : 'fly right',
+    interval   : '100',
+	queue:true
+  });
+
+}
+
+
+function experienceShow(){
+
+$('.direction2-l').hide();
+$('.direction2-r').hide();
+$('.timeline-2').hide();
+
+$('#experience-section').transition('zoom');  
+$('.timeline-2')
+  .transition({
+    animation  : 'fly up',
+    interval   : '100',
+	queue:true
+  });  
+	
+  
+ $('.direction2-r')
+  .transition({
+    animation  : 'fly left',
+    interval   : '100',
+	queue:true
+  });  
+  
+$('.direction2-l')
+  .transition({
+    animation  : 'fly right',
+    interval   : '100',
+	queue:true
+  });
+}
+
+
+
+function educationHide(callback){
+
+    $('.timeline')
+  .transition({
+    animation  : 'fly up',
+    interval   : '100',
+	queue:true
+  });  
+	
+
+ $('.direction-r')
+  .transition({
+    animation  : 'fly left',
+    interval   : '100',
+	queue:true
+  });  
+  
+$('.direction-l')
+  .transition({
+    animation  : 'fly right',
+    interval   : '100',
+	queue:true
+  });
+  
+  $('#education-section').transition('zoom'); 
+  $('#education-section').hide(); 
+  $('.direction-l').hide();
+$('.direction-r').hide();
+$('.timeline').hide();
+return true;
+  
+}
+
+
+function experienceHide(callback){
+
+$('.timeline-2')
+  .transition({
+    animation  : 'fly up',
+    interval   : '100',
+	queue:true
+  });  
+	
+  
+ $('.direction2-r')
+  .transition({
+    animation  : 'fly left',
+    interval   : '100',
+	queue:true
+  });  
+  
+
+$('.direction2-l')
+  .transition({
+    animation  : 'fly right',
+    interval   : '100',
+	queue:true
+  });
+
+$('#experience-section').transition('zoom'); 
+$('#experience-section').hide(); 
+$('.direction2-l').hide();
+$('.direction2-r').hide();
+$('.timeline-2').hide();
+return true;
+}
+
+
+$("#port1").click( function () {
+$("#port1-modal").modal('show');
+});
+$("#port2").click( function () {
+$("#port2-modal").modal('show');
+});
+$("#port3").click( function () {
+$("#port3-modal").modal('show');
+});
+$("#port4").click( function () {
+$("#port4-modal").modal('show');
+});
+$("#port5").click( function () {
+$("#port5-modal").modal('show');
+});
+$("#port6").click( function () {
+$("#port6-modal").modal('show');
+});
+
+
+
+
+
+
+
+
+
+
+$("#skills").click( function() {
+
+if ($('.skills-section').is(":hidden")) {
+$('.skills-section').transition('zoom'); 
+  }
+  $('.direction-l').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.direction-r').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.timeline').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.direction2-l').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.direction2-r').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('.timeline-2').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('#experience-section').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+$('#education-section').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
+  
+  $('.contact-section').removeClass('visible').addClass('hidden').css('display','none');
+  $('.portfolio-section').removeClass('visible').addClass('hidden').css('display','none');
+
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	animationEnabled: true,
+	title: {
+		text: "Development"
+	},
+	data: [{
+		type: "pie",
+		startAngle: 25,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: [
+			{ y: 23, label: "PHP/Laravel" },
+			{ y: 19, label: "javascript/jQuery" },
+			{ y: 12, label: "AngularJS" },
+			{ y: 3, label: "Python" },
+			{ y: 14, label: "Node.js/Express.js" },
+			{ y: 15, label: "MySQL" },
+			{ y: 7, label: "MongoDB" },
+			{ y: 7, label: "Ajax/API" }
+		]
+	}]
+});
+chart.render();
+
+
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	title: {
+		text: "Skill Level 1 (Beginner) to 10 (expert)"
+	},
+	axisX: {
+		interval: 1
+	},
+	axisY: {
+		title: "Expenses in Billion Dollars"
+	},
+	data: [{
+		type: "bar",
+		indexLabel: "{y}",
+		dataPoints: [
+			{ label: "PHP/Laravel", y: 9, url: "" },
+			{ label: "javascript/jQuery", y: 8, url: "" },
+			{ label: "AngularJS", y: 4, url: ""},
+			{ label: "Python", y: 3, url: "" },
+			{ label: "Node.js/Express.js", y: 5, url: "" },
+			{ label: "MySQL", y: 7, url: "" },
+			{ label: "MongoDB", y: 4, url: "" },
+			{ label: "Ajax/API", y: 6, url: "" }
+		]
+	}]
+});
+chart2.render();
+
+});
+</script>
