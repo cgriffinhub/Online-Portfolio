@@ -84,8 +84,43 @@
     </script>
 </head>
 <style>
-.portfolio-items {
-		margin:0px 30px;
+	.portfolio-items {
+		padding:0.7em 1.3em !important;
+		margin:15px;
+		margin-bottom:0px !important;
+		cursor:pointer;
+		
+	}
+	.ui.black.label, .ui.black.labels .label {
+	background-color: rgba(27, 28, 29, 0.78) !important;	
+    font-size: 1.2em !important;
+	}
+	.portfolio-items:hover {
+		background:rgba(255, 255, 255, 0.18);
+	}
+	.top-items {
+		padding:1em !important;
+		margin:0px !important;
+		cursor:pointer;
+	}
+	.top-items:hover {
+		background:rgba(255, 255, 255, 0.18);
+	}
+	
+	.about-close-btn {
+		padding:1em !important;
+		margin:0px !important;
+		cursor:pointer;
+	}
+	.about-close-btn:hover {
+		background:rgba(255, 255, 255, 0.18);
+	}
+	.back-btn {
+		padding:1em !important;
+		cursor:pointer;
+	}
+	.back-btn:hover {
+	color:#ff695e;
 	}
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,900);
 
@@ -707,11 +742,11 @@ font-size: 3.2em !important;
 <body class="" style="margin-top:0px;">
 <div class="ui header dimmable dimmed" style="height:100%;margin:0px;overflow: hidden;">
 <div class="ui inverted secondary menu" style="z-index:1001;position:relative;padding:20px;overflow-y: scroll;  ">
-  <a target="_blank" href="">
+  <a target="_blank" href="https://www.linkedin.com/in/griffinchuck/" class="top-items">
    <i class="linkedin icon white" style="font-size:2rem;margin-right:0px;"></i>
   </a>
-   <a target="_blank" href="" style="left: 10px;
-    position: relative">
+   <a target="_blank" href="https://github.com/cgriffinhub" style="left: 10px;
+    position: relative" class="top-items">
    <i class="github icon white" style="font-size:2rem;margin-right:0px;"></i>
   </a>
   <div class="right menu">
@@ -747,28 +782,28 @@ Screenwriting Professional - Audio/Video Editor - All Things Media
    bottom: 0;
    width: 100%;
    background-color: transparent;
-   text-align: center;">
+   text-align: center;padding-bottom:0px;">
     <div class="ui container">
 	<div class="ui horizontal list" >
-  <div class="item portfolio-items">
+  <a class="item portfolio-items cubes-btn" style="padding-left:1em !important;">
     <div class="content">
       <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">About</div>
    <i class="cubes icon" style="color:#ffffff;font-size:2rem;"></i>
     </div>
-  </div>
-  <div class="item portfolio-items">
+  </a>
+  <div class="item portfolio-items briefcase-btn">
     <div class="content">
       <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">Resume</div>
    <i class="briefcase icon" style="color:#ffffff;font-size:2rem;"></i>
     </div>
   </div>
-  <div class="item portfolio-items">
+  <div class="item portfolio-items code-btn">
     <div class="content">
       <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">Portfolio</div>
    <i class="code icon white" style=";font-size:2rem;"></i>
     </div>
   </div>
-  <div class="item portfolio-items">
+  <div class="item portfolio-items envelope-btn">
     <div class="content">
       <div class="header white" style="margin-bottom: 20px;font-size:1.4rem;">Contact</div>
    <i class="envelope icon white" style="font-size:2rem;"></i>
@@ -786,7 +821,7 @@ Screenwriting Professional - Audio/Video Editor - All Things Media
 	<div class="one column row">
 <div class="sixteen wide column">
 	<div class="ui secondary menu" style="z-index:1001;position:relative;padding:20px;">
-<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;right:20px;">Close <i class="close icon about-close"></i></span>
+<span class="about-close-btn" style="font-size:2rem;margin-right:0px;position:absolute;right: -30px;top: -15px;">Close <i class="close icon about-close"></i></span>
 
 </div>
 
@@ -848,7 +883,7 @@ Screenwriting Professional - Audio/Video Editor - All Things Media
 
 <div class="resume-section transition hidden">
 	<div class="" style="z-index:1001;position:relative;padding:20px;">
-<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;left:20px;"><i class="arrow left icon back"></i> Back</span>
+<span class="back-btn" style="font-size:2rem;margin-right:0px;"><i class="arrow left icon back"></i> Back</span>
 <div style="margin:auto;text-align:center;">
 <div class="ui buttons" style="margin-bottom:60px;">
   <button id="education" class="ui large inverted primary button">Education</button>
@@ -1013,28 +1048,26 @@ Screenwriting Professional - Audio/Video Editor - All Things Media
 
 
 <div class="portfolio-section transition hidden" style="background:url('noise.jpg');height: 100%;">
+
 	<div class="" style="position:relative;padding:20px;">
-<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;left:20px;"><i class="arrow left icon back"></i> Back</span>
-  <div class="ui container">
-    <div class="ui huge header">PORTFOLLIO</div>
-  <div class="ui secondary menu">
-  <button  class="ui button" tabindex="0">
-    All
-  </button >
-  <button  class="ui button" tabindex="1">
-    
-  </button>
-  <button  class="ui button" tabindex="2">
-    Friends
-  </button >
-</div>
-	<div class="ui stackable three column grid container">
+<span class="back-btn" style="font-size:2rem;margin-right:0px;"><i class="arrow left icon back"></i> Back</span>
+  <div class="ui container" style="margin-top:60px;">
+    <h1 class="ui huge header" style="text-align:center;font-size:4.5rem;margin:30px 0px 15px 0px;">PORTFOLIO</h1>
+	<hr class="hr-primary" style="border-color:#000000;">
+  <div id="context2">
+  <div class="ui pointing secondary menu"style="text-align:center;margin:50px 0px;">
+    <a class="item active ui large header" data-tab="fourth">Projects</a>
+    <a class="item ui large header" data-tab="fifth">FullStack Briefcase</a>
+    <!-- <a class="item ui large header" data-tab="sixth">Sixth</a> -->
+  </div>
+  <div class="ui tab active" data-tab="fourth">
+  <div class="ui stackable three column centered grid container">
   <div class="column" id="port1">
     <div class="ui fluid image raised">
       <div class="ui black ribbon label" style="font-size:1em;">
         <i class="film icon"></i> ScriptMother.com
       </div>
-      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/logo-large3.jpg">
+      <img src="img/logo-large3.jpg">
     </div>
   </div>
   <div class="ui basic modal" id="port1-modal">
@@ -1046,7 +1079,7 @@ Screenwriting Professional - Audio/Video Editor - All Things Media
 	<div class="ui header" style="font-size:2em;color:#ffffff;">
 <em>Raise Your Script the Write Way</em>
   </div>
-  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/scriptmother.jpg" style="margin:auto;max-width:550px;">
+  <img class="ui fluid image" src="img/scriptmother.jpg" style="margin:auto;max-width:550px;">
   <h3>ScriptMother is an innovative new   platform for screenwriters. Our peer-review app lets you receive unlimited professional feedback for your script. Earn credits by reviewing projects uploaded by your peers. Credits can be spent on better reviews, monthly competitions, and industry exposure for you and your script.</h3>
   <h5>Client: <strong><a href="https://hadden-farms.com/modes/index2.html" target="_blank">Gamine Modes</a></strong> | Date: <strong>November 2017 - Present</strong> <br />Service: <strong>Founder/Owner, PHP development and Semantic UI design from concept to finished product. E-Commerce Integration.
 </strong></h5>
@@ -1064,7 +1097,7 @@ Screenwriting Professional - Audio/Video Editor - All Things Media
       <div class="ui black ribbon label" style="font-size:1em;">
         <i class="gift icon"></i> GamineModes.com
       </div>
-      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/gamine.png">
+      <img src="img/gamine.png">
     </div>
   </div>
   <div class="ui basic modal" id="port2-modal">
@@ -1078,7 +1111,7 @@ Screenwriting Professional - Audio/Video Editor - All Things Media
 Create Your Own Face Mask
 </em>
   </div>
-  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/dress.jpg" style="margin:auto;max-width:550px;">
+  <img class="ui fluid image" src="img/gamine.png" style="margin:auto;max-width:550px;">
   <h3>
   Gamine Modes is a prospective e-commerce store that sells dresses and fashion accessories. The site features an interactive design studio which allows the user to customize their own dress. The site's innovative design studio lets customers choose variations for their dress and through an animated canvas, see the changes in their product outcome in realtime.
   </h3>
@@ -1155,7 +1188,7 @@ Cedalius is one of the most innovative Consumer Reporting Agencies in the indust
       <div class="ui black ribbon label" style="font-size:1em;">
         <i class="leaf icon"></i> Upper Oconee Watershed Network
       </div>
-      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/uown.jpg">
+      <img src="img/uown.jpg">
     </div>
   </div>
   <div class="ui basic modal" id="port4-modal">
@@ -1169,7 +1202,7 @@ Cedalius is one of the most innovative Consumer Reporting Agencies in the indust
 Non-Profit Organization
 </em>
   </div>
-  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/uown.jpg" style="margin:auto;max-width:550px;">
+  <img class="ui fluid image" src="img/uown.jpg" style="margin:auto;max-width:550px;">
   <h3>
   The Upper Oconee Watershed Network is dedicated to protecting water resources and improving stream health in our watershed through community-based advocacy, monitoring, education, and recreation.
   </h3>
@@ -1199,7 +1232,7 @@ Non-Profit Organization
       <div class="ui black ribbon label" style="font-size:1em;">
         <i class="leaf icon"></i> World of Futons
       </div>
-      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/futons.jpg">
+      <img src="img/futons.jpg">
     </div>
   </div>
   <div class="ui basic modal" id="port5-modal">
@@ -1213,7 +1246,7 @@ Non-Profit Organization
 Online Retail
 </em>
   </div>
-  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/futons.jpg" style="margin:auto;max-width:550px;">
+  <img class="ui fluid image" src="img/futons.jpg" style="margin:auto;max-width:550px;">
   <h3>
 World of Futons is a furniture retailer in Athens, Georgia, providing a wide range of unfinished Poplar Hardwood frames made right in Athens. Their showroom features over 20 different frames styles in Oak, Teak, Cherry, Beech and Poplar; over 10 different futon pads, including coil springs, wool, cotton, poly, blended combinations and over 300 different fabrics in a variety of textures and colors.</h3>
   <h5>
@@ -1242,7 +1275,7 @@ World of Futons is a furniture retailer in Athens, Georgia, providing a wide ran
       <div class="ui black ribbon label" style="font-size:1em;">
         <i class="microphone icon"></i> AIBN Radio/The Danny Daniel Show
       </div>
-      <img src="https://cgriffinhub.github.io/portfolio/img/portfolio/ddshow.jpg">
+      <img src="img/ddshow.jpg">
     </div>
   </div>
   <div class="ui basic modal" id="port6-modal">
@@ -1256,7 +1289,7 @@ World of Futons is a furniture retailer in Athens, Georgia, providing a wide ran
 Online Radio Network
 </em>
   </div>
-  <img class="ui fluid image" src="https://cgriffinhub.github.io/portfolio/img/portfolio/ddshow.jpg" style="margin:auto;max-width:550px;">
+  <img class="ui fluid image" src="img/ddshow.jpg" style="margin:auto;max-width:550px;">
   <h3>
   The Danny Daniel Show is a small-town America classic podcast that provides entertaining topics wrapped with sixties and seventies Motown music. The podcast aims to inspire listeners with informative and entertaining variety programming that is blended with upbeat nostalgic music. The Danny Daniel Show is a place to listen to relatable stories, ideas & classic witty humor.
   </h3>
@@ -1282,6 +1315,233 @@ Online Radio Network
   
   
 </div>
+  </div>
+  <div class="ui tab" data-tab="fifth">
+    <div class="ui four column stackable centered grid">
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://cgriffinhub.github.io/Word-Guess-Game/" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://cgriffinhub.github.io/Bootstrap-Portfolio/assets/images/oscartrophy.jpg" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://cgriffinhub.github.io/Word-Guess-Game/" target="_blank" class="header">Word Guess</a>
+      <div class="meta">
+        <span class="date">JavaScript</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://cgriffinhub.github.io/unit-4-game/" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://cgriffinhub.github.io/Bootstrap-Portfolio/assets/images/sw.jpg" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://cgriffinhub.github.io/unit-4-game/" target="_blank" class="header">RPG Game</a>
+      <div class="meta">
+        <span class="date">jQuery</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://cgriffinhub.github.io/TriviaGame/" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://cgriffinhub.github.io/Bootstrap-Portfolio/assets/images/trivia.jpg" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://cgriffinhub.github.io/TriviaGame/" target="_blank" class="header">Trivia Game</a>
+      <div class="meta">
+        <span class="date">JavaScript | jQuery | TimeOut</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://cgriffinhub.github.io/GifTastic/" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://cgriffinhub.github.io/Bootstrap-Portfolio/assets/images/gif.jpg" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://cgriffinhub.github.io/GifTastic/" target="_blank" class="header">Movie GIF App</a>
+      <div class="meta">
+        <span class="date">API | JavaScript</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://cgriffinhub.github.io/Train-Scheduler/" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://cgriffinhub.github.io/Bootstrap-Portfolio/assets/images/train.jpg" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://cgriffinhub.github.io/Train-Scheduler/" target="_blank" class="header">Train Scheduler</a>
+      <div class="meta">
+        <span class="date">FireBase | jQuery</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://dry-inlet-88162.herokuapp.com/survey" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://dry-inlet-88162.herokuapp.com/survey" target="_blank" class="header">Node.js Word Guess Game</a>
+      <div class="meta">
+        <span class="date">Node.js | Heroku</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://github.com/cgriffinhub/MySQLStorefront" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://miro.medium.com/max/730/1*d2zLEjERsrs1Rzk_95QU9A.png" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://github.com/cgriffinhub/MySQLStorefront" target="_blank" class="header">Node.js & MySQL StoreFront</a>
+      <div class="meta">
+        <span class="date">Node.js | MySQL</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://github.com/cgriffinhub/MySQLStorefront" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://miro.medium.com/max/730/1*d2zLEjERsrs1Rzk_95QU9A.png" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://github.com/cgriffinhub/MySQLStorefront" target="_blank" class="header">Node.js & Express FriendFinder</a>
+      <div class="meta">
+        <span class="date">Node.js | Express.js</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	
+	<div class="column">
+	<div class="ui special cards">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <a href="https://stark-cliffs-93506.herokuapp.com/" target="_blank"  class="ui inverted button">Check it Out</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://miro.medium.com/max/730/1*d2zLEjERsrs1Rzk_95QU9A.png" style="height:200px;">
+    </div>
+    <div class="content">
+      <a href="https://stark-cliffs-93506.herokuapp.com/" target="_blank" class="header">Wiki Flix</a>
+      <div class="meta">
+        <span class="date">Node.js | Express.js</span>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+	
+	
+            
+        </div>
+  </div>
+  <div class="ui tab" data-tab="sixth">
+    6
+  </div>
+</div>
+
 	
   </div>
 </div>
@@ -1289,7 +1549,7 @@ Online Radio Network
 
 <div class="contact-section transition hidden">
 	<div class="ui secondary menu" style="z-index:1001;position:relative;padding:20px;">
-<span style="font-size:2rem;margin-right:0px;position:absolute;top:20px;left:20px;"><i class="arrow left icon back"></i> Back</span>
+<span class="back-btn" style="font-size:2rem;margin-right:0px;"><i class="arrow left icon back"></i> Back</span>
   <div class="right menu">
     
   </div>
@@ -1302,40 +1562,46 @@ Online Radio Network
 
 
 $( document ).ready(function() {
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+$('.menu .item')
+  .tab()
+;
 // these two are the same
-$( ".cubes" ).click(function() {
+$( ".cubes-btn" ).click(function() {
   $('.menu-section').transition('fade down');
   $('.center-heading').transition('fade down');  
   $('.about-section').transition('slide up');
 });
 
 
-$( ".about-close" ).click(function() {
+$( ".about-close-btn" ).click(function() {
 $('.menu-section').transition('fade up');
   $('.center-heading').transition('fade up');  
 $('.about-section').transition('slide up');
 });
 
-$( ".briefcase" ).click(function() {
+$( ".briefcase-btn" ).click(function() {
   $('.dimmed').transition('fade left');  
   $('.resume-section').show().addClass('visible').removeClass('hidden');  
 $("#education").focus();
 	educationShow();
 });
 
-$( ".code" ).click(function() {
+$( ".code-btn" ).click(function() {
   $('.dimmed').transition('fade left');
   $('.portfolio-section').transition('fade left');
 });
 
-$( ".envelope" ).click(function() {
+$( ".envelope-btn" ).click(function() {
   $('.contact-section').transition('fade left');
   $('.dimmed').transition('fade left');
 });
 
 
 
-$( ".back" ).click(function() {
+$( ".back-btn" ).click(function() {
   $('.dimmed').transition('fade left');
   
   $('.direction-l').removeClass('visible').removeClass('hidden').removeClass('transition').attr('style','');
@@ -1350,23 +1616,42 @@ $('#education-section').removeClass('visible').removeClass('hidden').removeClass
   $('.contact-section').removeClass('visible').addClass('hidden').css('display','none');
   $('.portfolio-section').removeClass('visible').addClass('hidden').css('display','none');
   $('.resume-section').removeClass('visible').addClass('hidden').css('display','none');
+  $('.skills-section').removeClass('visible').addClass('hidden').css('display','none');
+  
 });
 
 
 $( "#experience" ).click(function() {
 if ( $("#experience-section").css('display') == 'none' || $("#experience-section").css("visibility") == "hidden"){
-    experienceHide();
-	educationShow();
+	if ( $("#education-section").css('display') == 'none' || $("#education-section").css("visibility") == "hidden"){
+	experienceShow();
+	}
+	else {
+		educationHide();
+	experienceShow();
+	}
 }
+  $('.skills-section').removeClass('visible').addClass('hidden').css('display','none');
 
 });
 
 $( "#education" ).click(function() {
 if ( $("#education-section").css('display') == 'none' || $("#education-section").css("visibility") == "hidden"){
 
-educationHide();
-experienceShow();
+	if ( $("#experience-section").css('display') == 'none' || $("#experience-section").css("visibility") == "hidden"){
+educationShow();
+		}
+	else {
+		experienceHide();
+educationShow();
+	}
+
+
+
 }
+  $('.skills-section').removeClass('visible').addClass('hidden').css('display','none');
+
+
 });
 
 });
